@@ -15,6 +15,10 @@
 
 
         <item name="cardBackgroundColor">@color/_FF7A7A7A</item>
+
+
+        <item name="cardViewStyle">@color/_FF7A7A7A</item>
+
         <!-- Customize your theme here. -->
     </style>
 </resources>

@@ -43,7 +43,7 @@ private var _binding: FragmentHomeBinding? = null
     val root: View = binding.root
 
       val healthDataManager = (requireActivity() as MainActivity).healthDataManager
-      val textView: TextView = binding.textHome
+//      val textView: TextView = binding.textHome
 
      var progressBar = binding.progressBar
       var  progressText = binding.progressText
@@ -69,13 +69,13 @@ private var _binding: FragmentHomeBinding? = null
 
                 try {
                     var x=healthDataManager.readStepInputsForLastDay().sumBy { it.count.toInt() }
-                   textView.setText(x.toString())
+//                   textView.setText(x.toString())
                     progressText!!.text = ((x*100/10000)).toString()+" _1"
                     progressBar!!.progress=((x*100/10000))
                 }catch (e:Exception)
                 {
 
-                    textView.setText(e.message)
+//                    textView.setText(e.message)
                 }
 
                 kotlinx.coroutines.delay(1000) // Delay for 10 seconds before the next update
@@ -84,7 +84,7 @@ private var _binding: FragmentHomeBinding? = null
 
 
     homeViewModel.text.observe(viewLifecycleOwner) {
-      textView.text = it
+//      textView.text = it
     }
     return root
   }
