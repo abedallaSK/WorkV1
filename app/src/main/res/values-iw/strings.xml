@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WorkV1</string>
+    <string name="title_home">בית</string>
+    <string name="title_dashboard">לוח מחוונים</string>
+    <string name="title_notifications">התראות</string>
+    <string name="title_wallet">ארנק</string>
+    <string name="day">יום</string>
+    <string name="week">שבוע</string>
+    <string name="month">חודש</string>
+    <string name="hello">שלום!</string>
+    <string name="coin">מטבע</string>
+    <string name="home_page_titile_text">היום הוא יום יפה להפוך את הצעדים שלך לשווים אותם!</string>
+    <string name="daily_rewards">פרסים יומיים</string>
+    <string name="watching_ads_n_get_1_coin">צפה במודעות /n וקבל מטבע אחד</string>
+    <string name="share_get">שתפו וקבלו!</string>
+    <string name="get_10_coins">קבל 10 מטבעות, עזור לקהילה לצמוח!</string>
+    <string name="share">שתף</string>
+    <string name="start">התחל</string>
+    <string name="reduce_risk_of_n_heart_disease">הפחתת הסיכון למחלות לב</string>
+    <string name="strong_immune_n_system">מערכת /n חיסון חזקה</string>
+    <string name="improved_blood_npressure">לשפר את לחץ הדם</string>
+    <string name="offer_of_the_day">הצעת היום</string>
+    <string name="_2x_boost_n_for_the_next_30">2X BOOST ל-30 הבאים</string>
+    <string name="daily_boost">חיזוק יומי</string>
+</resources>

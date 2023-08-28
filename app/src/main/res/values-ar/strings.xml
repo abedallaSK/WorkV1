@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WorkV1</string>
+    <string name="title_home">بيت</string>
+    <string name="title_dashboard">لوحات المعلومات</string>
+    <string name="title_notifications">إشعارات</string>
+    <string name="title_wallet">محفظة</string>
+    <string name="day">يوم</string>
+    <string name="week">أسبوع</string>
+    <string name="month">شهر</string>
+    <string name="hello">مرحبًا!</string>
+    <string name="coin">عملة</string>
+    <string name="home_page_titile_text">اليوم هو يوم جميل لجعل خطواتك تستحق العناء!</string>
+    <string name="daily_rewards">المكافآت اليومية</string>
+    <string name="watching_ads_n_get_1_coin">شاهد الإعلانات \ nواحصل على عملة واحدة</string>
+    <string name="share_get">!شارك واحصل</string>
+    <string name="get_10_coins">احصل على 10 عملات معدنية، وساعد المجتمع \n على النمو!</string>
+    <string name="share">شارك</string>
+    <string name="start">يبدأ</string>
+    <string name="reduce_risk_of_n_heart_disease">تقليل خطر الإصابة /n بأمراض القلب</string>
+    <string name="strong_immune_n_system">نظام مناعي \n قوي</string>
+    <string name="improved_blood_npressure">تحسين ضغط الدم</string>
+    <string name="offer_of_the_day">عرض اليوم</string>
+    <string name="_2x_boost_n_for_the_next_30">2X تعزيز \n لمدة 30 القادمة</string>
+    <string name="daily_boost">دفعة يومية</string>
+</resources>

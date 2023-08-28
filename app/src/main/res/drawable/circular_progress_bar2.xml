@@ -37,9 +37,9 @@
                     android:elevation="30dp">
 
                     <gradient
-                        android:startColor="#9DE8BB"
-                        android:centerColor="#8DD0CC"
-                        android:endColor="#9DE8BB"
+                        android:startColor="#9AE0F6"
+                        android:centerColor="#30469D"
+                        android:endColor="#9AE0F6"
                         android:angle="12"
                         android:type="sweep"
                         android:useLevel="false"

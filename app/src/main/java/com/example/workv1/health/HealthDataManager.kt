@@ -79,6 +79,19 @@ class HealthDataManager(private val context: Context) {
         return readStepInputs(startOfToday, startOfTomorrow)
     }
 
+    suspend fun readStepInputsForLastXDays(x: Long): List<StepsRecord> {
+        val now = Instant.now()
+        val timeZone = ZoneId.systemDefault()
+
+        // Calculate the start date by subtracting 'x' days from the current date
+        val startOfXDaysAgo = ZonedDateTime.ofInstant(now, timeZone).minusDays(x-1).toLocalDate().atStartOfDay(timeZone).toInstant()
+
+        // Calculate the end date as the current date
+        val endOfToday = ZonedDateTime.ofInstant(now, timeZone).plusDays(1).toLocalDate().atStartOfDay(timeZone).toInstant()
+
+        return readStepInputs(startOfXDaysAgo, endOfToday)
+    }
+
     suspend fun readStepInputs(start: Instant, end: Instant): List<StepsRecord> {
 //        try {
             if (isOK) {

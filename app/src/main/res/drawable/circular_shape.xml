@@ -5,5 +5,5 @@
     android:shape="ring"
     android:thickness="12dp"
     android:useLevel="false">
-    <solid android:color="@color/_323232E" />
+    <solid android:color="?attr/cardBackgroundColor" />
 </shape>

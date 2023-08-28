@@ -1,4 +1,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="?attr/cardBackgroundColor" />
+    <solid android:color="?attr/cardBackgroundColor" /> <!-- Replace with your desired color -->
     <corners android:radius="20dp" />
+
 </shape>

@@ -7,4 +7,19 @@
     <string name="day">DAY</string>
     <string name="week">WEEK</string>
     <string name="month">MONTH</string>
+    <string name="hello">HELLO!</string>
+    <string name="coin">Coin</string>
+    <string name="home_page_titile_text">Today is beautiful day to make your steps worth them!</string>
+    <string name="daily_rewards">DAILY REWARDS</string>
+    <string name="watching_ads_n_get_1_coin">Watching ads \n Get 1 coin</string>
+    <string name="share_get"><![CDATA[Share & Get]]></string>
+    <string name="get_10_coins">Get 10 Coins, help the \n community grow!</string>
+    <string name="share">Share</string>
+    <string name="start">Start</string>
+    <string name="reduce_risk_of_n_heart_disease">Reduce risk of \nheart disease</string>
+    <string name="strong_immune_n_system">Strong immune \nsystem</string>
+    <string name="improved_blood_npressure">Improved blood\npressure</string>
+    <string name="offer_of_the_day">OFFER OF THE DAY</string>
+    <string name="_2x_boost_n_for_the_next_30">2X BOOST \n FOR THE NEXT 30\'</string>
+    <string name="daily_boost">DAILY BOOST</string>
 </resources>
