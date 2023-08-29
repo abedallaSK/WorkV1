@@ -18,6 +18,9 @@ import java.time.ZonedDateTime
 
 class HealthDataManager(private val context: Context) {
     var isOK = false
+    var step=0
+
+
     private val healthConnectClient by lazy { HealthConnectClient.getOrCreate(context) }
     private val permissions = setOf(
         HealthPermission.getReadPermission(StepsRecord::class),
@@ -26,9 +29,7 @@ class HealthDataManager(private val context: Context) {
 
     suspend fun initializeHealthData() {
         if (!hasAllPermissions(permissions)) {
-            val permissionsToRequest =
-//                permissions - healthConnectClient.permissionController.getGrantedPermissions()
-//            requestPermission.launch( permissionsToRequest)
+
             requestPermission.launch(permissions)
         }else
         {
@@ -108,6 +109,7 @@ class HealthDataManager(private val context: Context) {
 //            throw Exception("Error reading step records", e)
 //        }
     }
+
 
 
     private  fun showToast(message: String) {

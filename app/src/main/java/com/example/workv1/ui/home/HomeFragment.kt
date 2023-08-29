@@ -23,7 +23,7 @@ import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 
-class HomeFragment : Fragment() {
+class HomeFragment() : Fragment() {
 
 private var _binding: FragmentHomeBinding? = null
 
@@ -124,27 +124,28 @@ private var _binding: FragmentHomeBinding? = null
             while (true) {
 
                 try {
-                    day=healthDataManager.readStepInputsForLastDay().sumBy { it.count.toInt() }
-                    val numberFormat: NumberFormat = DecimalFormat("#,##0")
-                    var formattedNumber: String = numberFormat.format(day)
-                    if(flagDay==1)
-                        progressText!!.text =  formattedNumber
-                    progressBar!!.progress=((day*100/10000))
-
-
-                    week=healthDataManager.readStepInputsForLastXDays(7).sumBy { it.count.toInt() }
-
-                    formattedNumber = numberFormat.format(week)
-                    if(flagDay==2)
-                        progressText!!.text =  formattedNumber
-                    progressBar2!!.progress=((week*100/(10000*7)))
-
-
-                    month=healthDataManager.readStepInputsForLastXDays(30).sumBy { it.count.toInt() }
-                    formattedNumber = numberFormat.format(month)
-                    if(flagDay==3)
-                        progressText!!.text =  formattedNumber
-                    progressBar3!!.progress=((month*100/(10000*30)))
+                    progressText!!.text = healthDataManager.step.toString()
+//                    day=healthDataManager.readStepInputsForLastDay().sumBy { it.count.toInt() }
+//                    val numberFormat: NumberFormat = DecimalFormat("#,##0")
+//                    var formattedNumber: String = numberFormat.format(day)
+//                    if(flagDay==1)
+//                        progressText!!.text =  formattedNumber
+//                    progressBar!!.progress=((day*100/10000))
+//
+//
+//                    week=healthDataManager.readStepInputsForLastXDays(7).sumBy { it.count.toInt() }
+//
+//                    formattedNumber = numberFormat.format(week)
+//                    if(flagDay==2)
+//                        progressText!!.text =  formattedNumber
+//                    progressBar2!!.progress=((week*100/(10000*7)))
+//
+//
+//                    month=healthDataManager.readStepInputsForLastXDays(30).sumBy { it.count.toInt() }
+//                    formattedNumber = numberFormat.format(month)
+//                    if(flagDay==3)
+//                        progressText!!.text =  formattedNumber
+//                    progressBar3!!.progress=((month*100/(10000*30)))
 
                 }catch (e:Exception)
                 {
