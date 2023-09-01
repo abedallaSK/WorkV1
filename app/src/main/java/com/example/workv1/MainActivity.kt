@@ -189,6 +189,7 @@ private lateinit var binding: ActivityMainBinding
             if (running) {
                 healthDataManager.step += p0.values[0].toInt()
                 healthDataManager.coin=savingDataManagement.getCoin( healthDataManager.step)
+                savingDataManagement.addStepAndSave(healthDataManager.step)
 //                healthDataManager.step= totalStep.toInt()
                 Log.v(TAG, "Sensor value: $totalStep")
                 Toast.makeText(this, "Counting!!!", Toast.LENGTH_SHORT).show()
