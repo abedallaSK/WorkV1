@@ -23,4 +23,14 @@
 
     <color name="button_background_color">@color/black</color>
     <color name="background_color">#191919</color>
+
+
+
+    <color name="start_progressbar1">@color/start_ring1_D</color>
+    <color name="end_progressbar1">@color/end_ring1_D</color>
+    <color name="start_progressbar2">@color/start_ring2_D</color>
+    <color name="end_progressbar2">@color/end_ring2_D</color>
+    <color name="start_progressbar3">@color/start_ring3_D</color>
+    <color name="end_progressbar3">@color/end_ring3_D</color>
+
 </resources>

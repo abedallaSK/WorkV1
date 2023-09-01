@@ -10,21 +10,18 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.workv1.Data.dateFormat
 import com.example.workv1.databinding.ActivityMainBinding
 import com.example.workv1.health.HealthDataManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
-import androidx.appcompat.app.ActionBar
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.Date
 
 
 class MainActivity : AppCompatActivity() , SensorEventListener {
@@ -32,6 +29,7 @@ class MainActivity : AppCompatActivity() , SensorEventListener {
 private lateinit var binding: ActivityMainBinding
 
     var healthDataManager: HealthDataManager  = HealthDataManager(this)
+    lateinit var savingDataManagement: SavingDataManagement;
 
 
     private var sensorManager: SensorManager? = null
@@ -51,6 +49,8 @@ private lateinit var binding: ActivityMainBinding
         super.onCreate(savedInstanceState)
         //
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        savingDataManagement=SavingDataManagement(this)
          //
 
         try {
@@ -86,6 +86,8 @@ private lateinit var binding: ActivityMainBinding
         super.onDestroy()
 
     }
+
+
 
     private fun activityRecognitionPermission() {
         Log.v(TAG, "version sdk : ${Build.VERSION.SDK_INT} and version code : ${Build.VERSION_CODES.Q}")
@@ -146,14 +148,19 @@ private lateinit var binding: ActivityMainBinding
         }
     }
 
+
+
     override fun onResume() {
         super.onResume()
         running = true
         activityRecognitionPermission()
+        val x=savingDataManagement.getData(Date())
+        healthDataManager.step=x.step
         Log.v(TAG, "permission : $activityRecognitionGranted")
 
         startSensor()
     }
+
 
     private fun startSensor() {
         if (activityRecognitionGranted) {
@@ -173,16 +180,16 @@ private lateinit var binding: ActivityMainBinding
 
     override fun onPause() {
         super.onPause()
-        running = false
-        Log.v(TAG, "Activity on pause, data updating!!!")
+
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {
         Toast.makeText(this, "Counting!!!", Toast.LENGTH_SHORT).show()
         if (p0!!.sensor.type == Sensor.TYPE_STEP_DETECTOR) {
             if (running) {
-                totalStep += p0.values[0]
-                healthDataManager.step= totalStep.toInt()
+                healthDataManager.step += p0.values[0].toInt()
+                healthDataManager.coin=savingDataManagement.getCoin( healthDataManager.step)
+//                healthDataManager.step= totalStep.toInt()
                 Log.v(TAG, "Sensor value: $totalStep")
                 Toast.makeText(this, "Counting!!!", Toast.LENGTH_SHORT).show()
             }

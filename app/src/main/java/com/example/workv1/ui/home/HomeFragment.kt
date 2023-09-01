@@ -7,15 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.workv1.Constants
+import com.example.workv1.Constants.Companion.BOOST_TIME
+import com.example.workv1.Constants.Companion.DAYS_IN_MONTH
+import com.example.workv1.Constants.Companion.DAYS_IN_WEEK
 import com.example.workv1.MainActivity
 import com.example.workv1.R
+import com.example.workv1.SavingDataManagement
+import com.example.workv1.SharedViewModel
 import com.example.workv1.databinding.FragmentHomeBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -45,6 +50,9 @@ private var _binding: FragmentHomeBinding? = null
     private var remainingTimeInMillis: Long = 0
     private var isTimerRunning: Boolean = false
 
+
+    private lateinit var savingDataManagement:SavingDataManagement
+
     override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -56,23 +64,24 @@ private var _binding: FragmentHomeBinding? = null
     _binding = FragmentHomeBinding.inflate(inflater, container, false)
     val root: View = binding.root
 
-      val healthDataManager = (requireActivity() as MainActivity).healthDataManager
+        val healthDataManager = (requireActivity() as MainActivity).healthDataManager
 //      val textView: TextView = binding.textHome
-     var progressBar = binding.ringsHome.progressBar
-      var  progressText = binding.ringsHome.progressText
+        val progressBar = binding.ringsHome.progressBar
+        val progressText = binding.ringsHome.progressText
+        val tvCoin =binding.ringsHome.tvHomeCoin
 
-      var progressBar2 = binding.ringsHome.progressBar2
-      var progressBar3 = binding.ringsHome.progressBar3
-      var  buttonDay= binding.ringsHome.dayButton
-      var  buttonWeek= binding.ringsHome.weekButton
-      var buttonMonth =binding.ringsHome.monthButton
+        val progressBar2 = binding.ringsHome.progressBar2
+        val progressBar3 = binding.ringsHome.progressBar3
+        val buttonDay= binding.ringsHome.dayButton
+        val buttonWeek= binding.ringsHome.weekButton
+        val buttonMonth =binding.ringsHome.monthButton
+        val btStartBoost =binding.boostHome.btStartBoost
 
-        var btStartBoost =binding.boostHome.btStartBoost
+        AnimationUtils.loadAnimation(requireContext(), R.anim.hyperspace_jump).also { hyperspaceJumpAnimation ->
+            binding.adsHome.spaceshipImage.startAnimation(hyperspaceJumpAnimation)
+        }
 
-      AnimationUtils.loadAnimation(requireContext(), R.anim.hyperspace_jump).also { hyperspaceJumpAnimation ->
-        binding.adsHome.spaceshipImage.startAnimation(hyperspaceJumpAnimation)
-      }
-
+        savingDataManagement= SavingDataManagement(requireContext())
 
       buttonDay.setOnClickListener {
           flagDay=1
@@ -124,29 +133,33 @@ private var _binding: FragmentHomeBinding? = null
             while (true) {
 
                 try {
-                    progressText!!.text = healthDataManager.step.toString()
+//                    progressText.text = healthDataManager.step.toString()
 //                    day=healthDataManager.readStepInputsForLastDay().sumBy { it.count.toInt() }
-//                    val numberFormat: NumberFormat = DecimalFormat("#,##0")
-//                    var formattedNumber: String = numberFormat.format(day)
-//                    if(flagDay==1)
-//                        progressText!!.text =  formattedNumber
-//                    progressBar!!.progress=((day*100/10000))
-//
-//
-//                    week=healthDataManager.readStepInputsForLastXDays(7).sumBy { it.count.toInt() }
-//
-//                    formattedNumber = numberFormat.format(week)
-//                    if(flagDay==2)
-//                        progressText!!.text =  formattedNumber
-//                    progressBar2!!.progress=((week*100/(10000*7)))
-//
-//
-//                    month=healthDataManager.readStepInputsForLastXDays(30).sumBy { it.count.toInt() }
-//                    formattedNumber = numberFormat.format(month)
-//                    if(flagDay==3)
-//                        progressText!!.text =  formattedNumber
-//                    progressBar3!!.progress=((month*100/(10000*30)))
+                    day= healthDataManager.step
+                    val numberFormat: NumberFormat = DecimalFormat("#,##0")
+                    var formattedNumber: String = numberFormat.format(day)
+                    if(flagDay==1)
+                        progressText.text =  formattedNumber
+                    progressBar.progress=((day*100f/Constants.DAY_GOAL_STEP))
+                    tvCoin.setText(healthDataManager.coin.toString())
 
+//                    week=healthDataManager.readStepInputsForLastXDays(7).sumBy { it.count.toInt() }
+                    week=savingDataManagement.sumOfALlStepLastXDays(Constants.DAYS_IN_WEEK)
+                    formattedNumber = numberFormat.format(week)
+                    if(flagDay==2)
+                        progressText.text =  formattedNumber
+                    progressBar2.progress=((week*100f/(Constants.DAY_GOAL_WEEK)))
+
+
+                //    month=healthDataManager.readStepInputsForLastXDays(30).sumBy { it.count.toInt() }
+                    month=savingDataManagement.sumOfALlStepLastXDays(DAYS_IN_MONTH)
+                    formattedNumber = numberFormat.format(month)
+                    if(flagDay==3)
+                        progressText.text =  formattedNumber
+                    progressBar3.progress=((month*100f/(Constants.DAY_GOAL_MONTH)))
+
+                    savingDataManagement.addStepAndSave(day,isTimerRunning)
+                    tvCoin.text= savingDataManagement.getCoin(day,isTimerRunning).toString()
                 }catch (e:Exception)
                 {
 
@@ -168,7 +181,7 @@ private var _binding: FragmentHomeBinding? = null
     private fun startCountdownTimer() {
         if (!isTimerRunning) {
             // Calculate the initial time based on whether the timer is resumed
-            val initialTimeInMillis = if (remainingTimeInMillis > 0) remainingTimeInMillis else 30 * 60 * 1000
+            val initialTimeInMillis = if (remainingTimeInMillis > 0) remainingTimeInMillis else BOOST_TIME * 60 * 1000
 
             countdownTimer = object : CountDownTimer(initialTimeInMillis, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
@@ -192,7 +205,7 @@ private var _binding: FragmentHomeBinding? = null
         val minutes = TimeUnit.MILLISECONDS.toMinutes(remainingTimeInMillis)
         val seconds = TimeUnit.MILLISECONDS.toSeconds(remainingTimeInMillis) % 60
         val formattedTime = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
-       var timer = binding.boostHome.tvTimer
+       val timer = binding.boostHome.tvTimer
         timer.setText(formattedTime)
         // Update your UI element (e.g., a TextView) with the formattedTime
         // For example: timerTextView.text = formattedTime
@@ -203,15 +216,19 @@ private var _binding: FragmentHomeBinding? = null
         isTimerRunning = false
     }
 
-override fun onDestroyView() {
+    override fun onDestroyView() {
+        val savingDataManagement =SavingDataManagement(requireContext())
+        savingDataManagement.addStepAndSave(day,isTimerRunning)
         super.onDestroyView()
-        _binding = null
-try {
-    countdownTimer?.cancel()
-}catch (_:Exception)
-{}
+            _binding = null
+        try {
+            countdownTimer.cancel()
+        }catch (_:Exception) {}
 
-
-//   mainScope.cancel() // Cancel the coroutine scope to avoid leaks
     }
+    override fun onPause() {
+        super.onPause()
+        savingDataManagement.addStepAndSave(day,isTimerRunning)
+    }
+
 }

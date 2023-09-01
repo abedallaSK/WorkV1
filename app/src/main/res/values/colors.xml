@@ -12,4 +12,20 @@
 
     <color name="_BEBEBE">#BEBEBE</color>
     <color name="_323232E">#323232</color>
+
+    //Ring
+    <color name="start_ring1_D">#9DE8BB</color>
+    <color name="start_ring1_L">#621744</color>
+    <color name="end_ring1_D">#64DCDC</color>
+    <color name="end_ring1_L">#9b2323</color>
+
+    <color name="start_ring2_D">#9AE0F6</color>
+    <color name="start_ring2_L">#651f09</color>
+    <color name="end_ring2_D">#30469D</color>
+    <color name="end_ring2_L">#cfb962</color>
+
+    <color name="start_ring3_D">#C837BB</color>
+    <color name="start_ring3_L">#37c844</color>
+    <color name="end_ring3_D">#E5BD73</color>
+    <color name="end_ring3_L">#1a428c</color>
 </resources>
